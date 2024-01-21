@@ -1,13 +1,11 @@
 import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Loader } from "../components";
+import { HomeInfo, Loader } from "../components";
 import { Island } from "../models/Island";
-import Bird from "../models/Bird";
+import {Bird} from "../models/Bird";
 import { Plane } from "../models/Plan";
-import Sky from "../models/Sky";
-{
-  /* <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">POP UP</div> */
-}
+import {Sky} from "../models/Sky";
+
 
 const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
@@ -46,6 +44,11 @@ const Home = () => {
 
   return (
     <section className="w-full h-screen relative">
+      
+      <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
+        {currentStage && <HomeInfo currentStage={currentStage} />}
+      </div>
+
       <Canvas
         className={`w-full h-screen bg-transparent ${
           isRotating ? "cursor-grabbing" : "cursor-grab"
@@ -74,7 +77,7 @@ const Home = () => {
             planePosition={planePosition}
             planeScale={planeScale}
           />
-          <Sky />
+          <Sky isRotating={isRotating} />
           <Island
             setCurrentStage={setCurrentStage}
             position={islandPosition}
