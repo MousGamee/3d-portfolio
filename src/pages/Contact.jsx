@@ -17,8 +17,8 @@ const Contact = () => {
 
     emailjs
       .send(
-        'service_0wnzdjs',
-        'template_du5ofi4',
+        "service_0wnzdjs",
+        "template_du5ofi4",
         {
           from_name: form.name,
           to_name: "Mouss",
@@ -26,11 +26,11 @@ const Contact = () => {
           to_email: "moussa.sagna@hotmail.fr",
           message: form.message,
         },
-        'T91fzU-uAju9boNX6'
+        "T91fzU-uAju9boNX6"
       )
       .then(() => {
         setIsLoading(false);
-        setform({ name: "", email: "", message: "" })
+        setform({ name: "", email: "", message: "" });
         // TODO Show succes messsage
       })
       .catch((error) => {
