@@ -1,15 +1,33 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { HomeInfo, Loader } from "../components";
 import { Island } from "../models/Island";
-import {Bird} from "../models/Bird";
+import { Bird } from "../models/Bird";
 import { Plane } from "../models/Plan";
-import {Sky} from "../models/Sky";
+import { Sky } from "../models/Sky";
 
+import sakura from "../assets/sakura.mp3";
+import { soundoff, soundon } from "../assets/icons";
 
 const Home = () => {
+  const audioRef = useRef(new Audio(sakura));
+  audioRef.current.volume = 0.4;
+  audioRef.current.loop = true;
+
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
   const [currentStage, setCurrentStage] = useState(1);
+
+  useEffect(() => {
+    if (isPlayingMusic) {
+      audioRef.current.play();
+    }
+
+    return () => {
+      audioRef.current.pause();
+    };
+  }, [isPlayingMusic]);
+
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
     let screenPosition = [0, -6.5, -43];
@@ -44,8 +62,7 @@ const Home = () => {
 
   return (
     <section className="w-full h-screen relative">
-      
-      <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
+      <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
         {currentStage && <HomeInfo currentStage={currentStage} />}
       </div>
 
@@ -88,6 +105,14 @@ const Home = () => {
           />
         </Suspense>
       </Canvas>
+      <div className="absolute bottom-2 left-2">
+        <img
+          src={!isPlayingMusic ? soundoff : soundon}
+          alt=""
+          className="w-10 h-10 cursor-pointer object-contain"
+          onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+        />
+      </div>
     </section>
   );
 };
