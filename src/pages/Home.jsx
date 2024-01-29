@@ -74,8 +74,8 @@ const Home = () => {
           <Plane
             rotation={[0, 20, 0]}
             isRotating={isRotating}
-            planePosition={planePosition}
-            planeScale={planeScale}
+            position={planePosition}
+            scale={planeScale}
           />
           <Sky isRotating={isRotating} />
           <Island
